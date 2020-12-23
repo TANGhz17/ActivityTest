@@ -1,5 +1,6 @@
 package cn.tanghz17.activitytest;
 
+import androidx.annotation.LongDef;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,10 +15,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class FirstActivity extends AppCompatActivity {
+public class FirstActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("FirstActivity", this.toString());
+
         setContentView(R.layout.first_layout);
         Button button1=(Button) findViewById(R.id.button_1);
         button1.setOnClickListener(new View.OnClickListener() {
@@ -33,8 +36,8 @@ public class FirstActivity extends AppCompatActivity {
 
                 /*P43 2.3.1---显式intent
                 Intent intent = new Intent(FirstActivity.this,SecondActivity.class);
-                startActivity(intent);
-                */
+                startActivity(intent);*/
+
 
                 /*P45 2.3.2---隐式intent
                 Intent intent = new Intent("cn.tanghz17.activitytest.ACTION_START");
@@ -62,9 +65,18 @@ public class FirstActivity extends AppCompatActivity {
                 */
 
                 /*P51 2.3.5---返回上一活动数据
-                 */
+
                 Intent intent = new Intent(FirstActivity.this,SecondActivity.class);
-                startActivityForResult(intent,1);
+                startActivityForResult(intent,1);*/
+
+                /*P64 2.5.1---standard
+                Intent intent = new Intent(FirstActivity.this, FirstActivity.class);
+                startActivity(intent);*/
+                /*
+                Intent intent = new Intent(FirstActivity.this,SecondActivity.class);
+                startActivity(intent);*/
+
+                SecondActivity.actionStart(FirstActivity.this,"data1","data2");
             }
 
         });
@@ -106,4 +118,15 @@ public class FirstActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("FirstActivity", "onRestart");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("FirstActivity", "onDestroy");
+    }
 }
